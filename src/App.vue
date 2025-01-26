@@ -1,10 +1,12 @@
 <script setup>
-import LongPulling from './components/LongPulling.vue';
+// import LongPulling from './components/LongPulling.vue';
+import WebSocket from './components/WebSocket.vue';
 
 </script>
 
 <template>
-  <LongPulling />
+  <!-- <LongPulling /> -->
+   <WebSocket />
 </template>
 
 <style scoped></style>

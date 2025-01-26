@@ -21,7 +21,6 @@ app.get('/get-message', (req, res) => {
 
 // др участник чата отправляет сообщ
 app.post('/new-message', (req, res) => {
-  console.log(req.body)
   const message = req.body
 
   emitter.emit('newMessage', message)
