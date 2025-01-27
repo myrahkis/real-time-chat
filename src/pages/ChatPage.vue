@@ -27,5 +27,6 @@ onMounted(() => {
   width: 55vw;
   border: 6px solid var(--green-color);
   border-bottom: none;
+  box-shadow: 0 0.5rem 2rem black;
 }
 </style>
