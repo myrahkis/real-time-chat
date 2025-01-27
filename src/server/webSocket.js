@@ -26,7 +26,7 @@ wsServer.on('connection', function connection(ws) {
 })
 
 // отправка сообщ всем подключенным на данный момент
-function broadcastMessage(mes, id) {
+function broadcastMessage(mes) {
   wsServer.clients.forEach((client) => client.send(JSON.stringify(mes)))
 }
 
