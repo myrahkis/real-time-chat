@@ -35,14 +35,13 @@ const store = createStore({
       const markedMessages = state.messages.map((mes) =>
         mes.userId === state.userId ? { ...mes, isMine: true } : mes,
       )
-      console.log(markedMessages);
+      console.log(markedMessages)
       commit('setMessages', markedMessages)
     },
     async connect({ state, commit, dispatch }) {
       return new Promise((resolve, reject) => {
         const newSocket = new WebSocket('ws://localhost:5000')
         commit('setSocket', newSocket)
-        // commit('setUserId', newSocket.)
 
         // В момент подключения
         state.socket.onopen = () => {
@@ -91,6 +90,7 @@ const store = createStore({
 
         console.log('Отключение...')
         state.socket.send(JSON.stringify(message))
+        commit('setMessages', [message, ...state.messages])
 
         state.socket.close()
         commit('setSocket', null)

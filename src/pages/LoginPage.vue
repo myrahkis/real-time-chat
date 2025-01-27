@@ -15,11 +15,43 @@ const connect = async () => {
 </script>
 
 <template>
-  <input
-    type="text"
-    :value="username"
-    @input="setUser($event.target.value)"
-    placeholder="Введите ваше имя"
-  />
-  <button @click="connect">Войти</button>
+  <div class="container">
+    <h1 style="color: var(--red-color)">Введите имя, чтобы войти в чат</h1>
+    <div class="input-wrapper">
+      <input
+        class="name-input"
+        type="text"
+        :value="username"
+        @input="setUser($event.target.value)"
+        @keydown.enter="connect"
+        placeholder="Ваше имя"
+      />
+      <button class="login-btn" @click="connect" @keydown.enter="connect">Войти</button>
+    </div>
+  </div>
 </template>
+
+<style scoped>
+.input-wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.name-input {
+  width: 71%;
+  max-width: 71%;
+  font-size: 2rem;
+}
+.login-btn {
+  width: 28%;
+  max-width: 28%;
+  font-size: 2rem;
+  background-color: var(--base-pink-color);
+  color: var(--light-color);
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: var(--red-color);
+  }
+}
+</style>
