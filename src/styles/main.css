@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+Antique:wght@500;700&display=swap');
+
+:root {
+  --base-pink-color: #f36583;
+  --red-color: #a00035;
+  --light-color: #f7f5dd;
+  --green-color: #005b4e;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 65%;
+}
+
+body {
+  font-family: 'Zen Kaku Gothic Antique', serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 2rem;
+  padding: 2rem 3rem;
+  background-color: var(--light-color);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+}
+
+ul {
+  list-style: none;
+}
+
+input,
+textarea {
+  border: 3px solid var(--base-pink-color);
+  padding: 1rem 1.5rem;
+  font-size: 1.5rem;
+  border-radius: 1.5rem;
+
+  &:focus {
+    outline: 3px solid var(--green-color);
+    outline-offset: -2px;
+  }
+}
+
+button {
+  border: none;
+  padding: 1.5rem 2rem;
+  border-radius: 1.5rem;
+}
