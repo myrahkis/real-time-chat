@@ -8,6 +8,7 @@ const store = createStore({
     connected: false,
     user: '',
     socket: null,
+    userId: null,
   },
   mutations: {
     setMessages(state, messages) {
@@ -25,45 +26,77 @@ const store = createStore({
     setSocket(state, socket) {
       state.socket = socket
     },
+    setUserId(state, id) {
+      state.userId = id
+    },
   },
   actions: {
-    connect({ state, commit }) {
-      const newSocket = new WebSocket('ws://localhost:5000')
-      commit('setSocket', newSocket)
+    markMyMessages({ state, commit }) {
+      const markedMessages = state.messages.map((mes) =>
+        mes.userId === state.userId ? { ...mes, isMine: true } : mes,
+      )
+      console.log(markedMessages);
+      commit('setMessages', markedMessages)
+    },
+    async connect({ state, commit, dispatch }) {
+      return new Promise((resolve, reject) => {
+        const newSocket = new WebSocket('ws://localhost:5000')
+        commit('setSocket', newSocket)
+        // commit('setUserId', newSocket.)
 
-      // В момент подключения
-      state.socket.onopen = () => {
-        console.log('Подключение установлено...')
-        commit('setConnected', true)
+        // В момент подключения
+        state.socket.onopen = () => {
+          console.log('Подключение установлено...')
+          commit('setConnected', true)
+
+          const message = {
+            event: 'connection',
+            username: state.user,
+            id: Date.now(),
+          }
+
+          state.socket.send(JSON.stringify(message))
+
+          resolve()
+        }
+        state.socket.onmessage = (event) => {
+          const message = JSON.parse(event.data)
+
+          if (message.userId && state.userId === null) {
+            commit('setUserId', message.userId)
+          }
+
+          commit('setMessages', [message, ...state.messages])
+
+          dispatch('markMyMessages')
+        }
+        state.socket.onclose = () => {
+          console.log('Socket закрыт')
+          commit('setConnected', false)
+        }
+        state.socket.onerror = () => {
+          console.log('Socket произошла ошибка')
+        }
+      })
+    },
+    async disconnect({ state, commit }) {
+      return new Promise((resolve, reject) => {
+        if (!state.socket) return
 
         const message = {
-          event: 'connection',
+          event: 'disconnection',
           username: state.user,
           id: Date.now(),
         }
 
+        console.log('Отключение...')
         state.socket.send(JSON.stringify(message))
-      }
-      state.socket.onmessage = (event) => {
-        const message = JSON.parse(event.data)
 
-        commit('setMessages', [message, ...state.messages])
-      }
-      state.socket.onclose = () => {
-        console.log('Socket закрыт')
+        state.socket.close()
+        commit('setSocket', null)
         commit('setConnected', false)
-      }
-      state.socket.onerror = () => {
-        console.log('Socket произошла ошибка')
-      }
-    },
-    disconnect({ state, commit }) {
-      if (!state.socket) return
-
-      state.socket.close()
-      console.log('Отключение...')
-      commit('setSocket', null)
-      commit('setConnected', false)
+        resolve()
+      })
     },
     async sendMessage({ state, commit }) {
       const message = {

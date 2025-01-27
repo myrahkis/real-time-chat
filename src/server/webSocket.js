@@ -10,7 +10,10 @@ const wsServer = new WebSocketServer(
 )
 
 wsServer.on('connection', function connection(ws) {
-  //   ws.id = Date.now() // id для приватной комнаты
+  const userId = Date.now()
+  ws.id = userId // id для приватной комнаты
+
+  console.log(`New user connected: ${userId}`)
 
   ws.on('message', function (message) {
     message = JSON.parse(message)
@@ -19,7 +22,15 @@ wsServer.on('connection', function connection(ws) {
       case 'connection':
         broadcastMessage(message)
         break
+
+      case 'disconnection':
+        broadcastMessage(message)
+        break
       case 'message':
+        message = {
+          ...message,
+          userId,
+        }
         broadcastMessage(message)
     }
   })
