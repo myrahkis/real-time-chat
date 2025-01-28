@@ -18,28 +18,43 @@ const { message } = defineProps({ message: Object })
 <style scoped>
 .entered,
 .leave {
-  text-align: center;
+  background-color: var(--secondary-color);
+  width: fit-content;
+  color: var(--light-color);
+  margin: 0 auto;
+  padding: 0.5rem 1rem;
+  border-radius: 1.5rem;
+  font-size: 1.1rem;
+  text-transform: uppercase;
 }
 
 .myMes {
   width: fit-content;
+  max-width: 45%;
+  word-wrap: break-word;
   background-color: var(--base-pink-color);
-  color: var(--light-color);
+  color: var(--dark-color);
   float: right;
+  border: 2px solid #c6426a;
   border-radius: 1.8rem;
   padding: 1rem 1.5rem;
   border-bottom-right-radius: 0;
+  font-size: 1.5rem;
 }
 .regMes {
   width: fit-content;
+  max-width: 45%;
+  word-wrap: break-word;
   background-color: var(--red-color);
   border-radius: 1.8rem;
   padding: 1rem 1.5rem;
+  border: 2px solid var(--secondary-color);
   border-bottom-left-radius: 0;
-  color: var(--light-color);
+  color: var(--dark-color);
+  font-size: 1.5rem;
 }
 .other-username {
-  font-size: 1.6rem;
+  font-size: 1.3rem;
 }
 .not-my-mes {
   display: flex;

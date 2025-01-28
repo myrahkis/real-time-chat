@@ -47,7 +47,7 @@ const connect = async () => {
   max-width: 28%;
   font-size: 2rem;
   background-color: var(--base-pink-color);
-  color: var(--light-color);
+  color: var(--dark-color);
   transition: all 0.2s;
 
   &:hover {

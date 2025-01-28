@@ -20,6 +20,10 @@ wsServer.on('connection', function connection(ws) {
 
     switch (message.event) {
       case 'connection':
+        message = {
+          ...message,
+          userId,
+        }
         broadcastMessage(message)
         break
 
