@@ -31,6 +31,13 @@ const store = createStore({
     },
   },
   actions: {
+    // userIdToStorage({ state, commit }) {
+    //   const userId = localStorage.getItem('userId') || Date.now().toString()
+
+    //   localStorage.setItem('userId', userId)
+
+    //   commit('setUserId', userId)
+    // },
     markMyMessages({ state, commit }) {
       const markedMessages = state.messages.map((mes) =>
         mes.userId === state.userId ? { ...mes, isMine: true } : mes,
@@ -61,11 +68,15 @@ const store = createStore({
         state.socket.onmessage = (event) => {
           const message = JSON.parse(event.data)
 
-          if (message.userId && state.userId === null) {
+          if (message.event === 'assignId' && state.userId === null) {
             commit('setUserId', message.userId)
           }
 
-          commit('setMessages', [message, ...state.messages])
+          console.log(`${state.user} w/ id ${state.userId}`)
+
+          if (message.event !== 'assignId') {
+            commit('setMessages', [message, ...state.messages])
+          }
 
           dispatch('markMyMessages')
         }
@@ -95,6 +106,7 @@ const store = createStore({
         state.socket.close()
         commit('setSocket', null)
         commit('setConnected', false)
+        commit('setUserId', null)
         resolve()
       })
     },
