@@ -38,14 +38,14 @@ const disconnect = async () => {
   width: 100%;
   justify-content: center;
   color: var(--light-color);
-  background-color: var(--secondary-color);
+  background-color: var(--red-color);
   padding: 0.5rem;
 }
 .exit-btn {
   padding: 1rem;
   background-color: transparent;
-  transition: all 0.3s;
   margin-left: 0.8rem;
+  transition: all 0.3s;
 
   svg {
     display: block;
@@ -53,14 +53,16 @@ const disconnect = async () => {
     height: 3rem;
     color: var(--light-color);
     stroke: var(--light-color);
+    transition: all 0.3s;
   }
 
-  &:hover {
-    background-color: var(--base-pink-color);
+  &:focus {
+    background-color: var(--green-color);
     color: var(--dark-color);
   }
-  /* &:hover svg {
-    color: var(--dark-color);
-  } */
+  &:hover svg {
+    /* color: var(--dark-color); */
+    transform: scale(1.3);
+  }
 }
 </style>

@@ -28,7 +28,7 @@ const messages = computed(() => store.state.messages)
 
   scrollbar-width: thin;
   scrollbar-gutter: both;
-  scrollbar-color: var(--secondary-color) var(--light-color);
+  scrollbar-color: var(--red-color) var(--light-color);
 }
 /* .message {} */
 </style>

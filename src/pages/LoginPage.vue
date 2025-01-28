@@ -48,10 +48,12 @@ const connect = async () => {
   font-size: 2rem;
   background-color: var(--base-pink-color);
   color: var(--dark-color);
-  transition: all 0.2s;
+  transition: all 0.3s;
+  box-shadow: 0 0 0.2rem var(--red-color);
 
   &:hover {
     background-color: var(--red-color);
+    color: var(--green-color)
   }
 }
 </style>

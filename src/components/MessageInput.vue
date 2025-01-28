@@ -37,10 +37,11 @@ const sendMessage = () => store.dispatch('sendMessage')
   justify-content: center;
   width: 100%;
   padding: 1rem 1.5rem;
-  background-color: var(--secondary-color);
+  border-top: 1px solid var(--red-color);
+  background-color: var(--light-color);
 }
 .mes-input {
-  background-color: var(--light-color);
+  background-color: white;
   resize: horizontal;
   width: 100%;
   border: none;
@@ -59,6 +60,7 @@ const sendMessage = () => store.dispatch('sendMessage')
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   background-color: var(--base-pink-color);
+  transition: all 0.2s;
 
   svg {
     display: block;
@@ -66,6 +68,14 @@ const sendMessage = () => store.dispatch('sendMessage')
     height: 3.2rem;
     color: var(--base-pink-color);
     stroke: var(--light-color);
+    transition: all 0.2s;
+  }
+
+  &:hover svg {
+    color: var(--red-color);
+  }
+  &:hover {
+    background-color: var(--red-color);
   }
 }
 </style>

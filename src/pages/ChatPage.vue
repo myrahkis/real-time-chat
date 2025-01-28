@@ -31,6 +31,6 @@ onMounted(() => {
   border-radius: 1.5rem;
   /* border: 6px solid var(--green-color); */
   border-bottom: none;
-  box-shadow: 0 0.5rem 2rem black;
+  box-shadow: 0 0 0.8rem var(--dark-color);
 }
 </style>
