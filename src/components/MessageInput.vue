@@ -5,7 +5,7 @@ import { useStore } from 'vuex'
 const store = useStore()
 
 const newMessage = computed(() => store.state.newMes)
-const setNewMessage = (value) => store.commit('setNewMessage', value)
+const setNewMessage = (value) => store.commit('setNewMessage', value.trim())
 const sendMessage = () => store.dispatch('sendMessage')
 </script>
 
@@ -14,7 +14,7 @@ const sendMessage = () => store.dispatch('sendMessage')
     <textarea
       class="mes-input"
       type="text"
-      :value="newMessage.trim()"
+      :value="newMessage"
       @input="setNewMessage($event.target.value)"
       @keydown.enter="sendMessage"
     />

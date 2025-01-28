@@ -111,6 +111,8 @@ const store = createStore({
       })
     },
     async sendMessage({ state, commit }) {
+      if (state.newMes.trim() === '') return
+
       const message = {
         event: 'message',
         username: state.user,
@@ -120,7 +122,7 @@ const store = createStore({
 
       state.socket.send(JSON.stringify(message))
 
-      commit('setNewMessage', '')
+      commit('setNewMessage', null)
     },
   },
 })
