@@ -23,12 +23,10 @@ async function sendMessage() {
   if (newMes.value === '') return
 
   try {
-    // console.log('Отправка запроса...')
     await axios.post('http://localhost:5000/new-message', {
       message: newMes.value,
       id: Date.now(),
     })
-    // console.log('Запрос отправлен успешно!')
 
     newMes.value = ''
   } catch (err) {

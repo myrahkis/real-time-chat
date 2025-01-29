@@ -42,7 +42,6 @@ const store = createStore({
       const markedMessages = state.messages.map((mes) =>
         mes.userId === state.userId ? { ...mes, isMine: true } : mes,
       )
-      console.log(markedMessages)
       commit('setMessages', markedMessages)
     },
     async connect({ state, commit, dispatch }) {
@@ -52,7 +51,6 @@ const store = createStore({
 
         // В момент подключения
         state.socket.onopen = () => {
-          console.log('Подключение установлено...')
           commit('setConnected', true)
 
           const message = {
@@ -72,8 +70,6 @@ const store = createStore({
             commit('setUserId', message.userId)
           }
 
-          console.log(`${state.user} w/ id ${state.userId}`)
-
           if (message.event !== 'assignId') {
             commit('setMessages', [message, ...state.messages])
           }
@@ -81,11 +77,10 @@ const store = createStore({
           dispatch('markMyMessages')
         }
         state.socket.onclose = () => {
-          console.log('Socket закрыт')
           commit('setConnected', false)
         }
         state.socket.onerror = () => {
-          console.log('Socket произошла ошибка')
+          console.error('Socket произошла ошибка')
         }
       })
     },
@@ -99,7 +94,6 @@ const store = createStore({
           id: Date.now(),
         }
 
-        console.log('Отключение...')
         state.socket.send(JSON.stringify(message))
         commit('setMessages', [message, ...state.messages])
 
