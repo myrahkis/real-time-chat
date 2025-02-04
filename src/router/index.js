@@ -11,30 +11,26 @@ const routes = [
   {
     path: '/login',
     component: LoginPage,
-    beforeEnter: (to, from, next) => {
-      if (store.state.connected) {
-        next('/chat')
-      } else {
-        next()
-      }
-    },
   },
   {
     path: '/chat',
     component: ChatPage,
-    beforeEnter: (to, from, next) => {
-      if (!store.state.connected) {
-        next('/')
-      } else {
-        next()
-      }
-    },
   },
 ]
 
 const router = createRouter({
   routes,
   history: createWebHistory(),
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.path === '/chat' && !store.state.connected) {
+    next('/login')
+  } else if (to.path === '/login' && store.state.connected) {
+    next('/chat')
+  } else {
+    next()
+  }
 })
 
 export default router
