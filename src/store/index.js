@@ -46,7 +46,7 @@ const store = createStore({
     },
     async connect({ state, commit, dispatch }) {
       return new Promise((resolve, reject) => {
-        const newSocket = new WebSocket('ws://localhost:5000')
+        const newSocket = new WebSocket('ws://real-time-chat-opwl.onrender.com/')
         commit('setSocket', newSocket)
 
         // В момент подключения

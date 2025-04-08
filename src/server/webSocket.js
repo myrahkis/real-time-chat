@@ -1,14 +1,20 @@
+import http from 'http'
 import { WebSocketServer } from 'ws'
 
-const PORT = 5000
+const PORT = process.env.PORT || 3000
 
-const wsServer = new WebSocketServer(
-  {
-    port: PORT,
-  },
-  () => console.log(`Server started on port ${PORT}`),
-)
+const server = http.createServer((req, res) => {
+  res.writeHead(200)
+  res.end('WebSocket server is running')
+})
 
+const wsServer = new WebSocketServer({ server })
+
+server.listen(PORT, () => {
+  console.log(`Server started on port ${PORT}`)
+})
+
+// обработка соединений
 wsServer.on('connection', function connection(ws) {
   const userId = Date.now().toString()
   ws.id = userId
@@ -33,11 +39,9 @@ wsServer.on('connection', function connection(ws) {
 
 // отправка сообщ всем подключенным на данный момент
 function broadcastMessage(mes) {
-  wsServer.clients.forEach((client) => client.send(JSON.stringify(mes)))
+  wsServer.clients.forEach((client) => {
+    if (client.readyState === 1) {
+      client.send(JSON.stringify(mes))
+    }
+  })
 }
-
-// function broadcastMessage(mes, id) {
-//   wsServer.clients.forEach((client) => {
-//     if (client.id === id) client.send(JSON.stringify(mes))
-//   })
-// }
